@@ -1,0 +1,111 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+--[[
+Conky, a system monitor, based on torsmo
+
+Any original torsmo code is licensed under the BSD license
+
+All code written since the fork of torsmo is licensed under the GPL
+
+Please see COPYING for details
+
+Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+Copyright (c) 2005-2012 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+]]
+
+conky.config = {
+    alignment = 'top_right',
+    background = true,
+    border_width = 1,
+    update_interval = 1,
+    double_buffer = true,
+    cpu_avg_samples = 2,
+	default_color = 'green',
+    default_outline_color = 'white',
+    default_shade_color = '1d1d1d',
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    own_window_colour = 'black',
+    use_xft = true,
+    font = 'WenQuanYi Micro Hei Mono:size=12',
+    gap_x = 10,
+    gap_y = 50,
+	maximum_width = 300,
+    minimum_width = 300,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    own_window = true,
+    own_window_transparent = false,
+    own_window_argb_visual = true,
+    own_window_argb_value = 150,
+    own_window_class = 'Conky',
+    own_window_type = 'desktop',
+    stippled_borders = 0,
+    update_interval = 1.0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+    color0 = 'white',
+    color1 = 'db7093'
+}
+
+conky.text = [[
+${color white}${font style=Bold:pixelsize=40}${alignc}${time %H:%M:%S}
+${font WenQuanYi Micro Hei Mono:pixelsize=18}${alignc}${time %b %d  %a}${font}
+${color #ffd700}${hr 1}$color
+${execpi 60 DJS=`date +%_d`; cal | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/ | sed 's/^/${alignc} /'}
+${color #ffd700}${hr 1}$color
+${color0}主机名:${color1}$alignr$nodename
+${color0}内核: ${color1}$alignr$kernel
+${color0}已开机: ${color1}$alignr$uptime
+${color0}网络状况 :${color1}$alignr(${wireless_essid wlp3s0})
+${color0}本机IP: ${if_existing /proc/net/route wlp3s0}$alignr${color1}${addr wlp3s0}${endif}${if_existing /proc/net/route enp0s31f6}$alignr$color1${addr enp0s31f6}${endif}
+${color0}网络信号: $alignr${color1}${wireless_link_qual_perc wlp3s0}% ${wireless_link_bar 5, 40 wlp3s0}
+${color0}Battery: ${alignr}${color1}${battery_percent BAT0}% ${battery_bar 5,40 BAT0}
+${color0}CPU 温度: $alignr${color1}${acpitemp}C
+${color0}CPU总使用率: ${color1} $alignr${cpu cpu0}%
+${color #78af78}${cpubar cpu0}
+${color0}CPU1 ${cpubar 4,150 cpu1} ${cpu cpu1}%
+${color0}CPU2 ${cpubar 4,150 cpu2} ${cpu cpu2}%
+${color0}CPU  ${cpugraph 15,150 ff0000 00ff00}
+${color0}总进程数:$processes ($running_processes running)
+${color #ddaa00} ${top name 1} $alignr ${top cpu 1}
+${color lightgrey} ${top name 2} $alignr ${top cpu 2}
+${color lightgrey} ${top name 3} $alignr ${top cpu 3}
+${color lightgrey} ${top name 4} $alignr ${top cpu 4}
+${color lightgrey} ${top name 5} $alignr ${top cpu 5}
+${color0}Highest MEM:
+${color #ddaa00} ${top_mem name 1}$alignr ${top_mem mem_res 1}
+${color lightgrey} ${top_mem name 2}$alignr ${top_mem mem_res 2}
+${color lightgrey} ${top_mem name 3}$alignr ${top_mem mem_res 3}
+${color lightgrey} ${top_mem name 4}$alignr ${top_mem mem_res 4}
+${color lightgrey} ${top_mem name 5}$alignr ${top_mem mem_res 5}
+${color0}物理内存:${color #4169e1} $alignr ${color}$mem ${color0}/${color}$memmax${color #4169e1} ${color1}$memperc%
+${color #78af78}${membar}
+${color0}根分区: ${color1}${alignr}${fs_free /} / ${fs_size /}
+${color #78af78}${fs_bar 4 /}
+${color0}Home分区: ${color1}${alignr}${fs_free /home} / ${fs_size /home}
+${color #78af78}${fs_bar 4 /home}
+${color0}硬盘读写: ${color1}${alignr} $diskio_read(Read) $color1 $diskio_write(Write)
+${color0}下载速度:${color1} ${if_existing /proc/net/route wlp3s0}${downspeed wlp3s0}${alignr}${color1} ${totaldown wlp3s0}${endif}${if_existing /proc/net/route enp0s31f6}${downspeed enp0s31f6}${alignr}${color1} ${totaldown enp0s31f6}${endif}
+${color0}上传速度:${color1} ${if_existing /proc/net/route wlp3s0}${upspeed wlp3s0}${alignr}${color1} ${totalup wlp3s0}${endif}${if_existing /proc/net/route enp0s31f6}${upspeed enp0s31f6}${alignr}${color1} ${totalup enp0s31f6}${endif}
+${color #ffd700}${hr 1}$color
+]]
