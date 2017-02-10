@@ -1,0 +1,14 @@
+# /dev/sda2
+UUID=9c266621-d709-4a35-b087-51c84e63400c	/         	ext4      	rw,relatime,data=ordered	0 1
+
+# /dev/sda1
+UUID=B60C-C7B1      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
+
+# /dev/sda3
+UUID=d47d8916-8bf0-4bea-8c82-a63a50dddfad	/home     	ext4      	rw,relatime,data=ordered	0 2
+
+# /dev/sdb2
+UUID=749E52649E521F44		/mnt/windows/C		ntfs-3g			ro,uid=acgotaku,gid=users    0       0 
+
+# /dev/sdb3
+UUID=D082163A8216260E           /mnt/windows/D          ntfs-3g                 ro,uid=acgotaku,gid=users    0       0 
